@@ -1,0 +1,75 @@
+@CHARSET "UTF-8";
+.bottom-bar-background {
+	zoom: 1;
+	width: 100%;
+	height: 160px;
+	min-width:1000px;
+	background:  top center no-repeat;
+	background-image: url(../images/bottom_bar.jpg);
+	margin-top: 23px;
+}
+.bottom-bar{
+	position: relative;
+	width:1000px;
+	margin:auto;
+	margin-top:-160px; 
+}
+
+.bottom-bar-first-container{
+	position: relative;
+	margin-top:50px;
+	width: 430px;
+	margin-left: 300px;
+}
+
+.bottom-bar-weixin-text{
+	font-size:13px;
+	font-family:Microsoft YaHei;
+	position: relative;
+	width:53px;
+	color: #bebebe;
+	display: inline-block;
+	cursor:pointer;
+}
+
+.bottom-bar-weixin-code-img{
+	position: absolute;
+	width: 258px;
+	height: 258px;
+	background-image: url(../images/weixin_code.jpg);
+	top:-270px;
+	left: -120px;
+	display:none;
+}
+
+.bottom-bar-weixin-text:hover .bottom-bar-weixin-code-img{
+	display: block;
+}
+
+
+.bottom-bar-weibo-text{
+	font-size:13px;
+	font-family:Microsoft YaHei;
+	position: relative;
+	width:53px;
+	color: #bebebe;
+	display: inline-block;
+	text-decoration:none;
+}
+.bottom-bar-first-text-split{
+	font-size:13px;
+	font-family:Microsoft YaHei;
+	position: relative;
+	width:5px;
+	color: #bebebe;
+	display: inline-block;
+	text-align:center;
+}
+.bottom-bar-text-follow{
+	font-size:13px;
+	font-family:Microsoft YaHei;
+	position: relative;
+	margin-top:10px;
+	color: #bebebe;
+	text-decoration:none;
+}

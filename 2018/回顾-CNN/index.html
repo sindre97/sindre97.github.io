@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.mviai.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="自动摘要: 	title:回顾CNN	date:2018121720:49:57	tags:	CNN	categories:	框架	pytorch	 ……..">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回顾-CNN">
+<meta property="og:url" content="http://blog.mviai.com/2018/%E5%9B%9E%E9%A1%BE-CNN/index.html">
+<meta property="og:site_name" content="落叶无痕">
+<meta property="og:description" content="自动摘要: 	title:回顾CNN	date:2018121720:49:57	tags:	CNN	categories:	框架	pytorch	 ……..">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.mviai.com/images/%E5%9B%9E%E9%A1%BE-CNN/20181218125050651.png">
+<meta property="article:published_time" content="2018-12-17T12:49:57.000Z">
+<meta property="article:modified_time" content="2025-01-17T03:44:13.187Z">
+<meta property="article:author" content="SindreYang">
+<meta property="article:tag" content="生活">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.mviai.com/images/%E5%9B%9E%E9%A1%BE-CNN/20181218125050651.png">
+
+<link rel="canonical" href="http://blog.mviai.com/2018/%E5%9B%9E%E9%A1%BE-CNN/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>回顾-CNN | 落叶无痕</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">落叶无痕</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">9</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">63</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL1NpbmRyZVlhbmc=" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.mviai.com/2018/%E5%9B%9E%E9%A1%BE-CNN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="SindreYang">
+      <meta itemprop="description" content="沉淀后我愿意做一个温暖的人。有自己的喜好，有自己的原则，有自己的信仰，不急功近利，不浮夸轻薄，宠辱不惊，淡定安逸，心静如水。------不忘初心，方得始终">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶无痕">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          回顾-CNN
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-17 20:49:57" itemprop="dateCreated datePublished" datetime="2018-12-17T20:49:57+08:00">2018-12-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-01-17 11:44:13" itemprop="dateModified" datetime="2025-01-17T11:44:13+08:00">2025-01-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">神经网络</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2018/%E5%9B%9E%E9%A1%BE-CNN/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/回顾-CNN/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="自动摘要-title-回顾CNNdate-2018121720-49-57tags-CNNcategories-框架pytorch-……"><a href="#自动摘要-title-回顾CNNdate-2018121720-49-57tags-CNNcategories-框架pytorch-……" class="headerlink" title="自动摘要: 	title:回顾CNN	date:2018121720:49:57	tags:	CNN	categories:	框架	pytorch	 …….."></a>自动摘要: 	title:回顾CNN	date:2018121720:49:57	tags:	CNN	categories:	框架	pytorch	 ……..<br><span id="more"></span></h2><h2 id="title-回顾-CNNdate-2018-12-17-20-49-57tags-CNNcategories-框架-pytorch-CNN"><a href="#title-回顾-CNNdate-2018-12-17-20-49-57tags-CNNcategories-框架-pytorch-CNN" class="headerlink" title="title: 回顾-CNNdate: 2018-12-17 20:49:57tags:    - CNNcategories:    - 框架    - pytorch    - CNN"></a>title: 回顾-CNN<br>date: 2018-12-17 20:49:57<br>tags:<br>    - CNN<br>categories:<br>    - 框架<br>    - pytorch<br>    - CNN</h2><h3 id="卷积神经网络通常包含以下几种层："><a href="#卷积神经网络通常包含以下几种层：" class="headerlink" title="卷积神经网络通常包含以下几种层："></a>卷积神经网络通常包含以下几种层：</h3><p><strong>1.卷积层（Convolutional layer）:</strong><br>卷积神经网路中每层卷积层由若干卷积单元组成，每个卷积单元的参数都是通过反向传播算法优化得到的。卷积运算的目的是提取输入的不同特征，第一层卷积层可能只能提取一些低级的特征如边缘、线条和角等层级，更多层的网络能从低级特征中迭代提取更复杂的特征。<br><strong>2.线性整流层（Rectified Linear Units layer, ReLU layer）:</strong><br>这一层神经的激活函数（Activation function）使用线性整流（Rectified Linear Units, ReLU）。<br>就像容器  不管你水怎样流  放进去都是容器形状(这叫容器整流)</p>
+<p><strong>3.池化层（Pooling layer）:</strong><br>通常在卷积层之后会得到维度很大的特征，将特征切成几个区域，取其最大值或平均值，得到新的、维度较小的特征。<br><strong>4.全连接层（ Fully-Connected layer）:</strong><br>把所有局部特征结合变成全局特征，用来计算最后每一类的得分。</p>
+<h4 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层:"></a>卷积层:</h4><p><strong>1.局部感知:</strong><br>相当于看一副很大很大的图,你必须从图中一区域(感受野)开始挨个浏览(扫描),你就能知道这幅图到底是啥!<br>有啥好处,一下看很大的图–身心疲惫,而且还不一定能看懂<br>慢慢看,又优雅,又高尚,还能快速抓到要点(就像你看到有德玛西亚,你就可以知道跟lol有关)<br><strong>2.权值共享(参数共享)</strong><br>比说,刚花了一万的力气创造了猪八戒和孙悟空,猪八戒找的到吃的,孙悟空能打小怪兽,<br>后面我遇到小怪兽就不用创造悟空了,直接拿过来打小怪兽就可以了!<br>如果遇到肚子饿了,孙悟空就没用了,就可以用猪八戒找吃的!</p>
+<p>所以参数共享能节省不必要的重复消耗,加快计算</p>
+<h4 id="池化层"><a href="#池化层" class="headerlink" title="池化层:"></a>池化层:</h4><p>池化（pool）即下采样（downsamples），目的是为了减少特征图。池化操作对每个深度切片独立，规模一般为 2＊2，相对于卷积层进行卷积运算，池化层进行的运算一般有以下几种： </p>
+<ul>
+<li>最大池化（Max Pooling）。取4个点的最大值。这是最常用的池化方法。 </li>
+<li>均值池化（Mean Pooling）。取4个点的均值。 <ul>
+<li>注:<br>  池化操作将保存深度大小不变。<br>  如果池化层的输入单元大小不是二的整数倍，<br>  一般采取边缘补零（zero-padding）的方式补成2的倍数，然后再池化。</li>
+</ul>
+</li>
+</ul>
+<h4 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层:"></a>全连接层:</h4><p><strong>全连接层</strong> <font color=red> <strong>可相互转换</strong> </font> <strong>卷积层</strong></p>
+<h4 id="常见卷积网络架构"><a href="#常见卷积网络架构" class="headerlink" title="常见卷积网络架构:"></a>常见卷积网络架构:</h4><p>输入 -&gt; [[卷积层(CONV) -&gt; 激活层(RELU)]  * N -&gt; 池化层(POOL)] *  M<br>-&gt; [全连接(fc) -&gt; 激活层(RELU)]* K -&gt; 全连接(fc)</p>
+<h3 id="PyTorch"><a href="#PyTorch" class="headerlink" title="PyTorch:"></a>PyTorch:</h3><h5 id="网络架构-CNN-py文件"><a href="#网络架构-CNN-py文件" class="headerlink" title="网络架构:CNN.py文件:"></a>网络架构:<strong>CNN.py文件:</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CNN</span>(nn.Module):</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="built_in">super</span>(CNN, <span class="variable language_">self</span>).__init__()                                      <span class="comment"># 输入MNIST 图片大小是(1,28,28)</span></span><br><span class="line">		<span class="variable language_">self</span>.layer=nn.Sequential(nn.Conv2d(<span class="number">1</span>,<span class="number">8</span>,kernel_size=<span class="number">5</span>,padding=<span class="number">2</span>),<span class="comment">#第一个参数,输入是1,表示输入图片通道为1 ,8表示输出,5卷积核大小,2补边大小</span></span><br><span class="line">								 nn.BatchNorm2d(<span class="number">8</span>),<span class="comment">#归一化</span></span><br><span class="line">								 nn.ReLU(),<span class="comment">#激活层</span></span><br><span class="line">								 nn.MaxPool2d(<span class="number">2</span>),<span class="comment">#池化层 到这 (8,28,28)图片就被池化成(8,14,14)了</span></span><br><span class="line">								 )</span><br><span class="line">		<span class="variable language_">self</span>.fc=nn.Linear(<span class="number">14</span>*<span class="number">14</span>*<span class="number">8</span>,<span class="number">10</span>)  <span class="comment">#全连接层 第一个输入的特征数,第二个 输出的特征 (0-9) 共10特征</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">#前向传播	</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">		out=<span class="variable language_">self</span>.layer(x)</span><br><span class="line">		out=out.view(out.size(<span class="number">0</span>),-<span class="number">1</span>)<span class="comment">#展平多维的卷积图成 (batch_size, 32 * 7 * 7)</span></span><br><span class="line">		out=<span class="variable language_">self</span>.fc(out)</span><br><span class="line">		<span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+
+<p><strong>训练架构:train.py文件</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pytorch</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span>  torchvision.datasets <span class="keyword">as</span> datasets</span><br><span class="line"><span class="keyword">import</span>  torchvision.transforms <span class="keyword">as</span>  transforms</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"></span><br><span class="line"><span class="comment">#工具包</span></span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="comment">#载入网络</span></span><br><span class="line"><span class="keyword">from</span> CNN <span class="keyword">import</span> CNN</span><br><span class="line"></span><br><span class="line"><span class="comment">#############参数设置#############</span></span><br><span class="line"><span class="comment">####命令行设置########</span></span><br><span class="line">parser = argparse.ArgumentParser(description=<span class="string">&#x27;CNN&#x27;</span>) <span class="comment">#导入命令行模块</span></span><br><span class="line"><span class="comment">#对于函数add_argumen()第一个是选项，第二个是数据类型，第三个默认值，第四个是help命令时的说明</span></span><br><span class="line">parser.add_argument(<span class="string">&#x27;--batch-size&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">64</span>, metavar=<span class="string">&#x27;N&#x27;</span>,</span><br><span class="line">                    <span class="built_in">help</span>=<span class="string">&#x27;训练batch-size大小 (default: 64)&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--epochs&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">10</span>, metavar=<span class="string">&#x27;N&#x27;</span>,</span><br><span class="line">                    <span class="built_in">help</span>=<span class="string">&#x27;训练epochs大小 (default: 10)&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--lr&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">float</span>, default=<span class="number">0.001</span>, metavar=<span class="string">&#x27;LR&#x27;</span>,</span><br><span class="line">                    <span class="built_in">help</span>=<span class="string">&#x27;学习率 (default: 0.001)&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--no-cuda&#x27;</span>, action=<span class="string">&#x27;store_true&#x27;</span>, default=<span class="literal">False</span>,</span><br><span class="line">                    <span class="built_in">help</span>=<span class="string">&#x27;不开启cuda训练&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--seed&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">1</span>, metavar=<span class="string">&#x27;S&#x27;</span>,</span><br><span class="line">                    <span class="built_in">help</span>=<span class="string">&#x27;随机种子 (default: 1)&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--log-interval&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">50</span>, metavar=<span class="string">&#x27;N&#x27;</span>,</span><br><span class="line">                    <span class="built_in">help</span>=<span class="string">&#x27;记录等待n批次 (default: 50)&#x27;</span>)</span><br><span class="line">args = parser.parse_args()<span class="comment">#相当于激活命令</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">args.cuda = <span class="keyword">not</span> args.no_cuda <span class="keyword">and</span> torch.cuda.is_available()<span class="comment">#判断gpu</span></span><br><span class="line"></span><br><span class="line">torch.manual_seed(args.seed)</span><br><span class="line"><span class="keyword">if</span> args.cuda:</span><br><span class="line">    torch.cuda.manual_seed(args.seed)<span class="comment">#为CPU设置种子用于生成随机数，以使得结果是确定的</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment">###############数据载入################</span></span><br><span class="line">train_dataset=datasets.MNIST(root=<span class="string">&quot;./data/&quot;</span>,<span class="comment">#保存目录</span></span><br><span class="line">                             train=<span class="literal">True</span>,  <span class="comment">#选择训练集</span></span><br><span class="line">                             transform=transforms.ToTensor(), <span class="comment">#把数据转换成pytorch张量 Tensor</span></span><br><span class="line">                             download=<span class="literal">True</span>) <span class="comment">#是否下载数据集</span></span><br><span class="line">test_dataset=datasets.MNIST(root=<span class="string">&#x27;./data/&#x27;</span>,</span><br><span class="line">                            train=<span class="literal">False</span>,<span class="comment">#关闭 表示选择测试集</span></span><br><span class="line">                            transform=transforms.ToTensor(),</span><br><span class="line">                            download=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">##############数据装载###############</span></span><br><span class="line">train_loader=torch.utils.data.DataLoader(dataset=train_dataset,<span class="comment">#装载数据</span></span><br><span class="line">                                         batch_size=args.batch_size,<span class="comment">#设置批大小</span></span><br><span class="line">                                         shuffle=<span class="literal">True</span>)<span class="comment">#是否随机打乱</span></span><br><span class="line">test_loader=torch.utils.data.DataLoader(dataset=test_dataset,</span><br><span class="line">                                         batch_size=args.batch_size,</span><br><span class="line">                                         shuffle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#############模型载入#################</span></span><br><span class="line">cnn=CNN()</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> args.no_cuda:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;正在使用gpu&#x27;</span>)</span><br><span class="line">    cnn.cuda()</span><br><span class="line"><span class="built_in">print</span>(cnn)</span><br><span class="line"></span><br><span class="line"><span class="comment">###############损失函数##################</span></span><br><span class="line">criterion=nn.CrossEntropyLoss()<span class="comment">#内置标准损失</span></span><br><span class="line">optimizer=torch.optim.Adam(cnn.parameters(),lr=args.lr)<span class="comment">#Adam优化器</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#############训练过程#####################</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span> (args.epochs):</span><br><span class="line">    <span class="keyword">for</span> i, (images,labels) <span class="keyword">in</span> <span class="built_in">enumerate</span>(train_loader):<span class="comment">#枚举出来</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span>  args.no_cuda:<span class="comment">#数据处理是否用gpu</span></span><br><span class="line">            images=images.cuda()</span><br><span class="line">            labels=labels.cuda()</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        images=Variable(images)<span class="comment">#装箱</span></span><br><span class="line">        labels=Variable(labels)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">##前向传播</span></span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        outputs=cnn(images)</span><br><span class="line">        <span class="comment">#损失</span></span><br><span class="line">        loss=criterion(outputs,labels)</span><br><span class="line">        <span class="comment">#反向传播</span></span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step ()</span><br><span class="line">        <span class="comment">##打印记录</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (i+<span class="number">1</span>)% args.log_interval==<span class="number">0</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;Epoch [%d/%d], Iter [%d/%d] Loss: %.4f&#x27;</span></span><br><span class="line">                   %(epoch+<span class="number">1</span>, args.epochs, i+<span class="number">1</span>, <span class="built_in">len</span>(train_dataset)//args.batch_size, loss.item()))</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">        <span class="comment">#保存模型</span></span><br><span class="line">        torch.save(cnn.state_dict(), <span class="string">&#x27;cnn.pkl&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注:</li>
+<li>数据集下载不下来,修改pytorch里面MNIST.py文件</li>
+<li>效果如图:</li>
+<li><img src="https://blog.mviai.com/images/%E5%9B%9E%E9%A1%BE-CNN/20181218125050651.png"></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="SindreYang 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="SindreYang 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>SindreYang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.mviai.com/2018/%E5%9B%9E%E9%A1%BE-CNN/" title="回顾-CNN">http://blog.mviai.com/2018/回顾-CNN/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat.png">
+            <span class="icon">
+              <i class="fa fa-wechat"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/fastai-%E5%85%A5%E9%97%A8%E8%A7%86%E8%A7%89/" rel="prev" title="fastai-入门视觉">
+      <i class="fa fa-chevron-left"></i> fastai-入门视觉
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/%E5%9B%9E%E9%A1%BE-AlexNet/" rel="next" title="回顾-AlexNet">
+      回顾-AlexNet <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%91%98%E8%A6%81-title-%E5%9B%9E%E9%A1%BECNNdate-2018121720-49-57tags-CNNcategories-%E6%A1%86%E6%9E%B6pytorch-%E2%80%A6%E2%80%A6"><span class="nav-number">1.</span> <span class="nav-text">自动摘要: 	title:回顾CNN	date:2018121720:49:57	tags:	CNN	categories:	框架	pytorch	 ……..</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#title-%E5%9B%9E%E9%A1%BE-CNNdate-2018-12-17-20-49-57tags-CNNcategories-%E6%A1%86%E6%9E%B6-pytorch-CNN"><span class="nav-number">2.</span> <span class="nav-text">title: 回顾-CNNdate: 2018-12-17 20:49:57tags:    - CNNcategories:    - 框架    - pytorch    - CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%80%9A%E5%B8%B8%E5%8C%85%E5%90%AB%E4%BB%A5%E4%B8%8B%E5%87%A0%E7%A7%8D%E5%B1%82%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">卷积神经网络通常包含以下几种层：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E5%B1%82"><span class="nav-number">2.1.1.</span> <span class="nav-text">卷积层:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%A0%E5%8C%96%E5%B1%82"><span class="nav-number">2.1.2.</span> <span class="nav-text">池化层:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82"><span class="nav-number">2.1.3.</span> <span class="nav-text">全连接层:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number">2.1.4.</span> <span class="nav-text">常见卷积网络架构:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PyTorch"><span class="nav-number">2.2.</span> <span class="nav-text">PyTorch:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84-CNN-py%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">网络架构:CNN.py文件:</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SindreYang"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">SindreYang</p>
+  <div class="site-description" itemprop="description">沉淀后我愿意做一个温暖的人。有自己的喜好，有自己的原则，有自己的信仰，不急功近利，不浮夸轻薄，宠辱不惊，淡定安逸，心静如水。------不忘初心，方得始终</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1NpbmRyZVlhbmc=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;SindreYang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnl4QG12aWFpLmNvbQ==" title="E-Mail → mailto:yx@mviai.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2018/%E5%9B%9E%E9%A1%BE-CNN/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2018/%E5%9B%9E%E9%A1%BE-CNN/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SindreYang</span>
+</div><!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+<!-- 背景波浪 -->
+<script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+
+<!-- 腾讯企业邮箱 -->
+<style>
+.bizmail_loginpanel {
+    font-size: 12px;
+    width: 300px;
+    height: auto;
+    background: transparent;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bizmail_LoginBox {
+    padding: 10px 15px;
+}
+
+
+.bizmail_loginpanel form {
+    margin: 0;
+    padding: 0;
+}
+
+.bizmail_loginpanel input.text {
+    font-size: 12px;
+    width: 100px;
+    height: 20px;
+    margin: 0 2px;
+    background-color: transparent;
+    border:1px solid transparent;
+    box-shadow: none;
+    color: black;
+}
+
+.bizmail_loginpanel .bizmail_column {
+    height: 28px;
+}
+
+.bizmail_loginpanel .bizmail_column label {
+    display: block;
+    float: left;
+    width: 30px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+}
+
+.bizmail_loginpanel .bizmail_column .bizmail_inputArea {
+    float: left;
+    width: 240px;
+}
+
+.bizmail_loginpanel .bizmail_column span {
+    font-size: 12px;
+    word-wrap: break-word;
+    margin-left: 2px;
+    line-height: 200%;
+}
+
+.bizmail_loginpanel .bizmail_SubmitArea {
+    margin-left: 30px;
+    clear: both;
+}
+
+.bizmail_loginpanel .bizmail_SubmitArea a {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.bizmail_loginpanel select {
+    width: 110px;
+    height: 20px;
+    margin: 0 2px;
+}
+.bizmail_loginpanel input {
+
+    background-color: rgba(83, 126, 236, 0.562);
+}
+
+
+</style>
+
+<script type="text/javascript">
+function checkInput() {
+    var e = document.form1.uin,
+        i = document.form1.pwd;
+    return 0 == e.value.length ? e.focus() : 0 == i.value.length ? i.focus() : (document.form1.submit(), setTimeout(" document.form1.pwd.value = '' ", 500)), !1
+}
+
+function writeLoginPanel(e) {
+    if (e && e.domainlist && -1 != e.domainlist.indexOf(".")) {
+        var a = "return checkInput()",
+            t = '<div id="divLoginpanelHor" class="bizmail_loginpanel" style="width:550px;"><div class="bizmail_LoginBox"><form name="form1" action="https://exmail.qq.com/cgi-bin/login" target="_blank" method="post" onsubmit="' + a + '"><input type="hidden" name="firstlogin" value="false" /><input type="hidden" name="errtemplate" value="dm_loginpage" /><input type="hidden" name="aliastype" value="other" /><input type="hidden" name="dmtype" value="bizmail" /><input type="hidden" name="p" value="" /><label>\u8d26\u53f7:</label><input type="text" name="uin" class="text" value="" />@#domainlist#<label>&nbsp&nbsp&nbsp;\u5bc6\u7801:</label><input type="password" name="pwd" class="text" value="" /><input type="submit" class="" name="" value="\u767b\u5f55" />&nbsp;<a href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=biz_rf_portal#recovery" target="_blank">\u5fd8\u8bb0\u5bc6\u7801\uff1f</a></form></div></div>',
+            n = '<div id="divLoginpanelVer" class="bizmail_loginpanel"><div class="bizmail_LoginBox"><form name="form1" action="https://exmail.qq.com/cgi-bin/login" target="_blank" method="post" onsubmit="' + a + '"><input type="hidden" name="firstlogin" value="false" /><input type="hidden" name="errtemplate" value="dm_loginpage" /><input type="hidden" name="aliastype" value="other" /><input type="hidden" name="dmtype" value="bizmail" /><input type="hidden" name="p" value="" /><div class="bizmail_column"><label>\u8d26\u53f7:</label><div class="bizmail_inputArea"><input type="text" name="uin" class="text" value="" />@#domainlist#</div></div><div class="bizmail_column"><label>\u5bc6\u7801:</label><div class="bizmail_inputArea"><input type="password" name="pwd" class="text" value="" /></div></div><div class="bizmail_SubmitArea"><input type="submit" class="" name="" style="width:66px;" value="\u767b\u5f55" /><a href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=biz_rf_portal#recovery" target="_blank">\u5fd8\u8bb0\u5bc6\u7801\uff1f</a></div></form></div></div>',
+            l = e.domainlist.split(";");
+        if (1 == l.length) var m = '<span>#domain#</span><input type="hidden" name="domain" value="#domain#" />'.replace(/#domain#/g, l[0]);
+        else {
+            m = '<select name="domain">';
+            for (i = 0; i < l.length; i++) m += '<option value="' + l[i] + '">' + l[i] + "</option>";
+            m += "</select>"
+        }
+        e.mode && "vertical" != e.mode && "both" != e.mode || document.write(n.replace(/#domainlist#/g, m)), "horizontal" != e.mode && "both" != e.mode || document.write(t.replace(/#domainlist#/g, m))
+    }
+}
+
+</script>      
+
+<script type="text/javascript"> writeLoginPanel({domainlist:"mviai.com", mode:"horizontal"});</script>      
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyxmItxjS';
+    var conf = 'e5e71132d9086bb54aeeba6e88e87df9';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://cy-cdn.kuaizhan.com/upload/plugins/plugins.count.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":75,"height":150},"mobile":{"show":true},"log":false});</script></body>
+</html>
+
+
+
+

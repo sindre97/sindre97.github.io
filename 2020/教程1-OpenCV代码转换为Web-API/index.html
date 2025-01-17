@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.mviai.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="自动摘要: 	title:’教程1:OpenCV代码转换为WebAPI’	tags:	cv	categories:	框架	opencv	toc:false	date:2020 ……..">
+<meta property="og:type" content="article">
+<meta property="og:title" content="教程1-OpenCV代码转换为Web-API">
+<meta property="og:url" content="http://blog.mviai.com/2020/%E6%95%99%E7%A8%8B1-OpenCV%E4%BB%A3%E7%A0%81%E8%BD%AC%E6%8D%A2%E4%B8%BAWeb-API/index.html">
+<meta property="og:site_name" content="落叶无痕">
+<meta property="og:description" content="自动摘要: 	title:’教程1:OpenCV代码转换为WebAPI’	tags:	cv	categories:	框架	opencv	toc:false	date:2020 ……..">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.mviai.com/images/FtkXBQuiEWGkMdxevcEKmDn9CMtu">
+<meta property="og:image" content="https://blog.mviai.com/images/Fn_6VoDczoUUyfrD8EXNl905_BN3">
+<meta property="og:image" content="https://blog.mviai.com/images/Fnuaih8Gp2gs7Wk_U0c3xYhvkyd6">
+<meta property="og:image" content="https://blog.mviai.com/images/FhFWGHLwvkJIMXPlh2F_SQ2IDYQE">
+<meta property="og:image" content="https://blog.mviai.com/images/FiG0_2rlroCh3LksbPbVUJfzesrF">
+<meta property="og:image" content="https://blog.mviai.com/images/Fn5vKEq3PIUUt0npOq7uhUuX62cw">
+<meta property="og:image" content="https://blog.mviai.com/images/FitcbVJmwkj5ONrpzEp2SvuIQj9P">
+<meta property="og:image" content="https://blog.mviai.com/images/FvmAUQVa7r2anLef1CKARrVwICK0">
+<meta property="og:image" content="https://blog.mviai.com/images/FrZI70EK0hcjb3ff631SR0d8JvX2">
+<meta property="article:published_time" content="2020-03-08T15:59:03.000Z">
+<meta property="article:modified_time" content="2025-01-17T03:44:13.119Z">
+<meta property="article:author" content="SindreYang">
+<meta property="article:tag" content="生活">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.mviai.com/images/FtkXBQuiEWGkMdxevcEKmDn9CMtu">
+
+<link rel="canonical" href="http://blog.mviai.com/2020/%E6%95%99%E7%A8%8B1-OpenCV%E4%BB%A3%E7%A0%81%E8%BD%AC%E6%8D%A2%E4%B8%BAWeb-API/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>教程1-OpenCV代码转换为Web-API | 落叶无痕</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">落叶无痕</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">9</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">63</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL1NpbmRyZVlhbmc=" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.mviai.com/2020/%E6%95%99%E7%A8%8B1-OpenCV%E4%BB%A3%E7%A0%81%E8%BD%AC%E6%8D%A2%E4%B8%BAWeb-API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="SindreYang">
+      <meta itemprop="description" content="沉淀后我愿意做一个温暖的人。有自己的喜好，有自己的原则，有自己的信仰，不急功近利，不浮夸轻薄，宠辱不惊，淡定安逸，心静如水。------不忘初心，方得始终">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶无痕">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          教程1-OpenCV代码转换为Web-API
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-08 23:59:03" itemprop="dateCreated datePublished" datetime="2020-03-08T23:59:03+08:00">2020-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-01-17 11:44:13" itemprop="dateModified" datetime="2025-01-17T11:44:13+08:00">2025-01-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2020/%E6%95%99%E7%A8%8B1-OpenCV%E4%BB%A3%E7%A0%81%E8%BD%AC%E6%8D%A2%E4%B8%BAWeb-API/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2020/教程1-OpenCV代码转换为Web-API/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="自动摘要-title-’教程1-OpenCV代码转换为WebAPI’tags-cvcategories-框架opencvtoc-falsedate-2020-……"><a href="#自动摘要-title-’教程1-OpenCV代码转换为WebAPI’tags-cvcategories-框架opencvtoc-falsedate-2020-……" class="headerlink" title="自动摘要: 	title:’教程1:OpenCV代码转换为WebAPI’	tags:	cv	categories:	框架	opencv	toc:false	date:2020 …….."></a>自动摘要: 	title:’教程1:OpenCV代码转换为WebAPI’	tags:	cv	categories:	框架	opencv	toc:false	date:2020 ……..<br><span id="more"></span></h2><h2 id="title-‘教程1-OpenCV代码转换为Web-API’tags-cvcategories-框架-opencvtoc-falsedate-2020-03-08-23-59-03"><a href="#title-‘教程1-OpenCV代码转换为Web-API’tags-cvcategories-框架-opencvtoc-falsedate-2020-03-08-23-59-03" class="headerlink" title="title: ‘教程1:OpenCV代码转换为Web API’tags:  - cvcategories:  - 框架  - opencvtoc: falsedate: 2020-03-08 23:59:03"></a>title: ‘教程1:OpenCV代码转换为Web API’<br>tags:<br>  - cv<br>categories:<br>  - 框架<br>  - opencv<br>toc: false<br>date: 2020-03-08 23:59:03</h2><h1 id="目标"><a href="#目标" class="headerlink" title="目标:"></a>目标:</h1><ol>
+<li>我们将创建一个Web API，允许用户调用OpenCV代码。</li>
+<li>快速建立一个简单的示例。</li>
+<li>只需要一个Web浏览器，即可在所有平台上运行。</li>
+<li>该项目将是免费的！将注册一个免费帐户，并使用一个开源框架。</li>
+<li>将从一个非常基本的示例开始，在该示例中，用户将输入图像url传递到后端。后端读取图像并返回其宽度和高度。</li>
+</ol>
+<h1 id="工具"><a href="#工具" class="headerlink" title="工具:"></a>工具:</h1><ol>
+<li><span class="exturl" data-url="aHR0cDovL3B5dGhvbmFueXdoZXJlLmNvbS8=" title="http://pythonanywhere.com/">pythonanywhere<i class="fa fa-external-link"></i></span></li>
+</ol>
+<ul>
+<li>   PythonAnywhere不仅仅是一个托管平台。这是用于编写python代码的功能强大的IDE。它使您可以通过Web浏览器访问带有语法高亮显示的代码编辑器，Unix终端，访问日志文件。当然，您可以轻松地从github转移现有代码，也可以根据需要在vi中转移代码。它还附带安装了OpenCV！</li>
+</ul>
+<ol start="2">
+<li><span class="exturl" data-url="aHR0cDovL3d3dy53ZWIycHkuY29tLw==" title="http://www.web2py.com/">web2py<i class="fa fa-external-link"></i></span></li>
+</ol>
+<ul>
+<li>   免费的开源全栈框架，用于快速开发快速，可伸缩，安全和可移植的数据库驱动的基于Web的应用程序。用Python编写和编程</li>
+</ul>
+<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤:"></a>步骤:</h1><h2 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h2><ol>
+<li>注册PythonAnywhere并安装web2py(初学者的帐户是免费的,记住您的用户名)</li>
+<li>注册并登录后，转到“ Web”选项卡，然后添加一个新的Web应用程序。<br><img src="https://blog.mviai.com/images/FtkXBQuiEWGkMdxevcEKmDn9CMtu" alt="image.png"></li>
+<li>选择web2py作为您的python框架<br><img src="https://blog.mviai.com/images/Fn_6VoDczoUUyfrD8EXNl905_BN3" alt="image.png"></li>
+<li>选择web2py的管理员密码。(记住这是管理员密码,不是登录密码)<br><img src="https://blog.mviai.com/images/Fnuaih8Gp2gs7Wk_U0c3xYhvkyd6" alt="image.png"><br><img src="https://blog.mviai.com/images/FhFWGHLwvkJIMXPlh2F_SQ2IDYQE" alt="image.png"></li>
+</ol>
+<h2 id="在web2py上创建Web应用"><a href="#在web2py上创建Web应用" class="headerlink" title="在web2py上创建Web应用"></a>在web2py上创建Web应用</h2><ol>
+<li>打开一个新标签，然后转到位于web2py的管理界面(https:&#x2F;&#x2F;你的用户名.pythonanywhere.com&#x2F;admin&#x2F;default&#x2F;index)</li>
+</ol>
+<p><img src="https://blog.mviai.com/images/FiG0_2rlroCh3LksbPbVUJfzesrF" alt="image.png"><br><img src="https://blog.mviai.com/images/Fn5vKEq3PIUUt0npOq7uhUuX62cw" alt="image.png"></p>
+<ol start="2">
+<li>登陆后,检查是否有如下文件:(出现sindre目录)<br><img src="https://blog.mviai.com/images/FitcbVJmwkj5ONrpzEp2SvuIQj9P" alt="image.png"></li>
+</ol>
+<h2 id="将OpenCV代码添加到web2py"><a href="#将OpenCV代码添加到web2py" class="headerlink" title="将OpenCV代码添加到web2py"></a>将OpenCV代码添加到web2py</h2><p>web2py目录结构:</p>
+<ul>
+<li>模型包含应用程序的所有数据和规则</li>
+<li>控制器包含用于处理数据的代码</li>
+<li>视图则显示基础数据的某些状态</li>
+</ul>
+<p><img src="https://blog.mviai.com/images/FvmAUQVa7r2anLef1CKARrVwICK0" alt="image.png"></p>
+<p>TODO: 输入图像URL–&gt;返回图像的宽度和高度</p>
+<p>在控制器 controllers &#x2F; default.py最后添加以下代码<br><img src="https://blog.mviai.com/images/FrZI70EK0hcjb3ff631SR0d8JvX2" alt="image.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">=================================================</span></span><br><span class="line"><span class="string">@path   ：learnopencv -&gt; web</span></span><br><span class="line"><span class="string">@IDE    ：CLion</span></span><br><span class="line"><span class="string">@Author ：sindre</span></span><br><span class="line"><span class="string">@Date   ：2020/3/8 下午7:41</span></span><br><span class="line"><span class="string">==================================================</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">&#x27;sindre&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">image_dimensions</span>():</span><br><span class="line">    <span class="comment"># 伪装成Mozilla，因为一些web服务器可能不喜欢python机器人</span></span><br><span class="line">    hdr = &#123;<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0&#x27;</span>&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 设定要求</span></span><br><span class="line">    req = urllib2.Request(urllib2.request.<span class="built_in">vars</span>.url, headers=hdr)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 获取URL的内容</span></span><br><span class="line"></span><br><span class="line">        con = urllib2.urlopen( req )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 读取内容并将其转换为numpy数组</span></span><br><span class="line"></span><br><span class="line">        im_array = np.asarray(<span class="built_in">bytearray</span>(con.read()), dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#将numpy数组转换为图像。</span></span><br><span class="line"></span><br><span class="line">        im =  cv2.imdecode(im_array, cv2.IMREAD_GRAYSCALE)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 获取图像的宽度和高度。</span></span><br><span class="line"></span><br><span class="line">        height, width = im.shape</span><br><span class="line"></span><br><span class="line">        <span class="comment">#将宽度和高度封装在一个对象中，并返回经过编码的JSON</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> json.dumps(&#123;<span class="string">&quot;width&quot;</span> : width, <span class="string">&quot;height&quot;</span> : height&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> urllib2.HTTPError <span class="keyword">as</span> e:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> e.fp.read()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>保存后就可以测试了(注意,点 save file旁的图标才是保存)</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>随机找个图片地址<br>如:<span class="exturl" data-url="aHR0cHM6Ly9ob21lLnl4MTAyNC50b3AvaW1hZ2VzLzEucG5n" title="https://home.yx1024.top/images/1.png">https://home.yx1024.top/images/1.png<i class="fa fa-external-link"></i></span></p>
+<p>curl -F url&#x3D;<span class="exturl" data-url="aHR0cHM6Ly9ob21lLnl4MTAyNC50b3AvaW1hZ2VzLzEucG5n" title="https://home.yx1024.top/images/1.png">https://home.yx1024.top/images/1.png<i class="fa fa-external-link"></i></span> http:&#x2F;&#x2F;你的用户名.pythonanywhere.com&#x2F;你的应用名&#x2F;default&#x2F;image_dimensions</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="SindreYang 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="SindreYang 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>SindreYang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.mviai.com/2020/%E6%95%99%E7%A8%8B1-OpenCV%E4%BB%A3%E7%A0%81%E8%BD%AC%E6%8D%A2%E4%B8%BAWeb-API/" title="教程1-OpenCV代码转换为Web-API">http://blog.mviai.com/2020/教程1-OpenCV代码转换为Web-API/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat.png">
+            <span class="icon">
+              <i class="fa fa-wechat"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-GitKraken%E7%A0%B4%E8%A7%A3%E5%8F%8A%E6%95%99%E7%A8%8B/" rel="prev" title="第二部分-GitKraken破解及教程">
+      <i class="fa fa-chevron-left"></i> 第二部分-GitKraken破解及教程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/%E6%95%99%E7%A8%8B2-%E6%96%91%E7%82%B9%E6%A3%80%E6%B5%8B-Blob%E6%A3%80%E6%B5%8B/" rel="next" title="教程2-斑点检测-Blob检测">
+      教程2-斑点检测-Blob检测 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%91%98%E8%A6%81-title-%E2%80%99%E6%95%99%E7%A8%8B1-OpenCV%E4%BB%A3%E7%A0%81%E8%BD%AC%E6%8D%A2%E4%B8%BAWebAPI%E2%80%99tags-cvcategories-%E6%A1%86%E6%9E%B6opencvtoc-falsedate-2020-%E2%80%A6%E2%80%A6"><span class="nav-number">1.</span> <span class="nav-text">自动摘要: 	title:’教程1:OpenCV代码转换为WebAPI’	tags:	cv	categories:	框架	opencv	toc:false	date:2020 ……..</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#title-%E2%80%98%E6%95%99%E7%A8%8B1-OpenCV%E4%BB%A3%E7%A0%81%E8%BD%AC%E6%8D%A2%E4%B8%BAWeb-API%E2%80%99tags-cvcategories-%E6%A1%86%E6%9E%B6-opencvtoc-falsedate-2020-03-08-23-59-03"><span class="nav-number">2.</span> <span class="nav-text">title: ‘教程1:OpenCV代码转换为Web API’tags:  - cvcategories:  - 框架  - opencvtoc: falsedate: 2020-03-08 23:59:03</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-number"></span> <span class="nav-text">目标:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number"></span> <span class="nav-text">工具:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number"></span> <span class="nav-text">步骤:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C"><span class="nav-number">1.</span> <span class="nav-text">注册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8web2py%E4%B8%8A%E5%88%9B%E5%BB%BAWeb%E5%BA%94%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">在web2py上创建Web应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86OpenCV%E4%BB%A3%E7%A0%81%E6%B7%BB%E5%8A%A0%E5%88%B0web2py"><span class="nav-number">3.</span> <span class="nav-text">将OpenCV代码添加到web2py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">4.</span> <span class="nav-text">测试</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SindreYang"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">SindreYang</p>
+  <div class="site-description" itemprop="description">沉淀后我愿意做一个温暖的人。有自己的喜好，有自己的原则，有自己的信仰，不急功近利，不浮夸轻薄，宠辱不惊，淡定安逸，心静如水。------不忘初心，方得始终</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1NpbmRyZVlhbmc=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;SindreYang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnl4QG12aWFpLmNvbQ==" title="E-Mail → mailto:yx@mviai.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2020/%E6%95%99%E7%A8%8B1-OpenCV%E4%BB%A3%E7%A0%81%E8%BD%AC%E6%8D%A2%E4%B8%BAWeb-API/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2020/%E6%95%99%E7%A8%8B1-OpenCV%E4%BB%A3%E7%A0%81%E8%BD%AC%E6%8D%A2%E4%B8%BAWeb-API/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SindreYang</span>
+</div><!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+<!-- 背景波浪 -->
+<script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+
+<!-- 腾讯企业邮箱 -->
+<style>
+.bizmail_loginpanel {
+    font-size: 12px;
+    width: 300px;
+    height: auto;
+    background: transparent;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bizmail_LoginBox {
+    padding: 10px 15px;
+}
+
+
+.bizmail_loginpanel form {
+    margin: 0;
+    padding: 0;
+}
+
+.bizmail_loginpanel input.text {
+    font-size: 12px;
+    width: 100px;
+    height: 20px;
+    margin: 0 2px;
+    background-color: transparent;
+    border:1px solid transparent;
+    box-shadow: none;
+    color: black;
+}
+
+.bizmail_loginpanel .bizmail_column {
+    height: 28px;
+}
+
+.bizmail_loginpanel .bizmail_column label {
+    display: block;
+    float: left;
+    width: 30px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+}
+
+.bizmail_loginpanel .bizmail_column .bizmail_inputArea {
+    float: left;
+    width: 240px;
+}
+
+.bizmail_loginpanel .bizmail_column span {
+    font-size: 12px;
+    word-wrap: break-word;
+    margin-left: 2px;
+    line-height: 200%;
+}
+
+.bizmail_loginpanel .bizmail_SubmitArea {
+    margin-left: 30px;
+    clear: both;
+}
+
+.bizmail_loginpanel .bizmail_SubmitArea a {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.bizmail_loginpanel select {
+    width: 110px;
+    height: 20px;
+    margin: 0 2px;
+}
+.bizmail_loginpanel input {
+
+    background-color: rgba(83, 126, 236, 0.562);
+}
+
+
+</style>
+
+<script type="text/javascript">
+function checkInput() {
+    var e = document.form1.uin,
+        i = document.form1.pwd;
+    return 0 == e.value.length ? e.focus() : 0 == i.value.length ? i.focus() : (document.form1.submit(), setTimeout(" document.form1.pwd.value = '' ", 500)), !1
+}
+
+function writeLoginPanel(e) {
+    if (e && e.domainlist && -1 != e.domainlist.indexOf(".")) {
+        var a = "return checkInput()",
+            t = '<div id="divLoginpanelHor" class="bizmail_loginpanel" style="width:550px;"><div class="bizmail_LoginBox"><form name="form1" action="https://exmail.qq.com/cgi-bin/login" target="_blank" method="post" onsubmit="' + a + '"><input type="hidden" name="firstlogin" value="false" /><input type="hidden" name="errtemplate" value="dm_loginpage" /><input type="hidden" name="aliastype" value="other" /><input type="hidden" name="dmtype" value="bizmail" /><input type="hidden" name="p" value="" /><label>\u8d26\u53f7:</label><input type="text" name="uin" class="text" value="" />@#domainlist#<label>&nbsp&nbsp&nbsp;\u5bc6\u7801:</label><input type="password" name="pwd" class="text" value="" /><input type="submit" class="" name="" value="\u767b\u5f55" />&nbsp;<a href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=biz_rf_portal#recovery" target="_blank">\u5fd8\u8bb0\u5bc6\u7801\uff1f</a></form></div></div>',
+            n = '<div id="divLoginpanelVer" class="bizmail_loginpanel"><div class="bizmail_LoginBox"><form name="form1" action="https://exmail.qq.com/cgi-bin/login" target="_blank" method="post" onsubmit="' + a + '"><input type="hidden" name="firstlogin" value="false" /><input type="hidden" name="errtemplate" value="dm_loginpage" /><input type="hidden" name="aliastype" value="other" /><input type="hidden" name="dmtype" value="bizmail" /><input type="hidden" name="p" value="" /><div class="bizmail_column"><label>\u8d26\u53f7:</label><div class="bizmail_inputArea"><input type="text" name="uin" class="text" value="" />@#domainlist#</div></div><div class="bizmail_column"><label>\u5bc6\u7801:</label><div class="bizmail_inputArea"><input type="password" name="pwd" class="text" value="" /></div></div><div class="bizmail_SubmitArea"><input type="submit" class="" name="" style="width:66px;" value="\u767b\u5f55" /><a href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=biz_rf_portal#recovery" target="_blank">\u5fd8\u8bb0\u5bc6\u7801\uff1f</a></div></form></div></div>',
+            l = e.domainlist.split(";");
+        if (1 == l.length) var m = '<span>#domain#</span><input type="hidden" name="domain" value="#domain#" />'.replace(/#domain#/g, l[0]);
+        else {
+            m = '<select name="domain">';
+            for (i = 0; i < l.length; i++) m += '<option value="' + l[i] + '">' + l[i] + "</option>";
+            m += "</select>"
+        }
+        e.mode && "vertical" != e.mode && "both" != e.mode || document.write(n.replace(/#domainlist#/g, m)), "horizontal" != e.mode && "both" != e.mode || document.write(t.replace(/#domainlist#/g, m))
+    }
+}
+
+</script>      
+
+<script type="text/javascript"> writeLoginPanel({domainlist:"mviai.com", mode:"horizontal"});</script>      
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyxmItxjS';
+    var conf = 'e5e71132d9086bb54aeeba6e88e87df9';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://cy-cdn.kuaizhan.com/upload/plugins/plugins.count.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":75,"height":150},"mobile":{"show":true},"log":false});</script></body>
+</html>
+
+
+
+

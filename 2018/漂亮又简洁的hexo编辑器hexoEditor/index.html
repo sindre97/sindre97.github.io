@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.mviai.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="自动摘要: 	date:2018110521:05:48			地址：	*项目地址：https:&#x2F;&#x2F;github.com&#x2F;zhuzhuyule&#x2F;HexoEditor			功能	*HexoEdi ……..">
+<meta property="og:type" content="article">
+<meta property="og:title" content="漂亮又简洁的hexo编辑器hexoEditor">
+<meta property="og:url" content="http://blog.mviai.com/2018/%E6%BC%82%E4%BA%AE%E5%8F%88%E7%AE%80%E6%B4%81%E7%9A%84hexo%E7%BC%96%E8%BE%91%E5%99%A8hexoEditor/index.html">
+<meta property="og:site_name" content="落叶无痕">
+<meta property="og:description" content="自动摘要: 	date:2018110521:05:48			地址：	*项目地址：https:&#x2F;&#x2F;github.com&#x2F;zhuzhuyule&#x2F;HexoEditor			功能	*HexoEdi ……..">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/main.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/side-menu.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/menu.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/about.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/gif-settings.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/gif-tag.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/gif-mode.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/gif-uploadImage.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/gif-newpost.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/gif-hexo.gif">
+<meta property="article:published_time" content="2018-11-05T13:05:48.000Z">
+<meta property="article:modified_time" content="2025-01-17T03:44:13.131Z">
+<meta property="article:author" content="SindreYang">
+<meta property="article:tag" content="生活">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/main.png">
+
+<link rel="canonical" href="http://blog.mviai.com/2018/%E6%BC%82%E4%BA%AE%E5%8F%88%E7%AE%80%E6%B4%81%E7%9A%84hexo%E7%BC%96%E8%BE%91%E5%99%A8hexoEditor/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>漂亮又简洁的hexo编辑器hexoEditor | 落叶无痕</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">落叶无痕</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">9</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">63</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL1NpbmRyZVlhbmc=" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.mviai.com/2018/%E6%BC%82%E4%BA%AE%E5%8F%88%E7%AE%80%E6%B4%81%E7%9A%84hexo%E7%BC%96%E8%BE%91%E5%99%A8hexoEditor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="SindreYang">
+      <meta itemprop="description" content="沉淀后我愿意做一个温暖的人。有自己的喜好，有自己的原则，有自己的信仰，不急功近利，不浮夸轻薄，宠辱不惊，淡定安逸，心静如水。------不忘初心，方得始终">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶无痕">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          漂亮又简洁的hexo编辑器hexoEditor
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-05 21:05:48" itemprop="dateCreated datePublished" datetime="2018-11-05T21:05:48+08:00">2018-11-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-01-17 11:44:13" itemprop="dateModified" datetime="2025-01-17T11:44:13+08:00">2025-01-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%A9%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">玩具</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2018/%E6%BC%82%E4%BA%AE%E5%8F%88%E7%AE%80%E6%B4%81%E7%9A%84hexo%E7%BC%96%E8%BE%91%E5%99%A8hexoEditor/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/漂亮又简洁的hexo编辑器hexoEditor/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>自动摘要: 	date:2018110521:05:48			地址：	*项目地址：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3podXpodXl1bGUvSGV4b0VkaXRvcg==" title="https://github.com/zhuzhuyule/HexoEditor">https://github.com/zhuzhuyule/HexoEditor<i class="fa fa-external-link"></i></span>			功能	*HexoEdi ……..</p>
+<span id="more"></span>
+
+<p>date: 2018-11-05 21:05:48</p>
+<h1 id="地址："><a href="#地址：" class="headerlink" title="地址："></a>地址：</h1><ul>
+<li>项目地址 ：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3podXpodXl1bGUvSGV4b0VkaXRvcg==" title="https://github.com/zhuzhuyule/HexoEditor">https://github.com/zhuzhuyule/HexoEditor<i class="fa fa-external-link"></i></span></li>
+</ul>
+<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><ul>
+<li>HexoEditor <ul>
+<li>预览内容与 Hexo 生成页面内容高度相似</li>
+<li>支持 Hexo 原生 Tag&#x2F;Filter&#x2F;Renderer</li>
+<li>支持使用 Hexo 配置文件 <code>_config.yml</code></li>
+<li>快速生成 <strong>新Post</strong> 到项目资源路径下</li>
+<li>快速修改文件名(在Hexo编辑模式中)</li>
+<li>快速部署</li>
+<li>快速执行Hexo命令 <code>hexo d</code>,<code>hexo g</code>,<code>hexo s</code>,<code>hexo clean</code></li>
+<li>图片自动转换为Markdown格式<ul>
+<li>支持拖拽图片</li>
+<li>支持剪贴板粘贴</li>
+</ul>
+</li>
+<li>图床支持(一键上传)<ul>
+<li>支持 <span class="exturl" data-url="aHR0cHM6Ly9zbS5tcy8=" title="https://sm.ms/">SM.MS<i class="fa fa-external-link"></i></span> </li>
+<li>支持 <span class="exturl" data-url="aHR0cHM6Ly9wb3J0YWwucWluaXUuY29tLw==" title="https://portal.qiniu.com/">QiNiu<i class="fa fa-external-link"></i></span> </li>
+<li>支持 <span class="exturl" data-url="aHR0cHM6Ly9jb25zb2xlLmNsb3VkLnRlbmNlbnQuY29tLw==" title="https://console.cloud.tencent.com/">Tencent<i class="fa fa-external-link"></i></span></li>
+</ul>
+</li>
+<li>快速启动（常用目录，常用地址）</li>
+<li>滚动条启用&#x2F;取消同步滚动</li>
+</ul>
+</li>
+<li>HexoEditor (继承 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL01vZWRpdG9yL01vZWRpdG9y" title="https://github.com/Moeditor/Moeditor">Moeditor<i class="fa fa-external-link"></i></span> 原有功能)<ul>
+<li>GitHub 风格 Markdown 显示</li>
+<li>TeX math 表达式</li>
+<li>UML 设计图</li>
+<li>编辑框代码高亮显示</li>
+<li>只读&#x2F;只写&#x2F;预览多模式切换</li>
+<li>用户自定义 字体，行高，字体大小</li>
+<li>用户自定义主题（文件名：main.csss）</li>
+<li>高亮代码块皮肤切换(由 <span class="exturl" data-url="aHR0cHM6Ly9oaWdobGlnaHRqcy5vcmcv" title="https://highlightjs.org/">highlight.js<i class="fa fa-external-link"></i></span> 提供支持)</li>
+<li>自动重载文件</li>
+<li>本地化</li>
+<li>专注模式</li>
+</ul>
+</li>
+</ul>
+<h1 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h1><p><img src="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/main.png" alt="HexoEditor Main"></p>
+<p><img src="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/side-menu.png" alt="HexoEditor side"></p>
+<p><img src="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/menu.png" alt="HexoEditor menu"></p>
+<p><img src="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/about.png" alt="HexoEditor About"></p>
+<h1 id="动态截图"><a href="#动态截图" class="headerlink" title="动态截图"></a>动态截图</h1><p><img src="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/gif-settings.gif" alt="HexoEditor settings"></p>
+<p><img src="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/gif-tag.gif" alt="HexoEditor tag"></p>
+<p><img src="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/gif-mode.gif" alt="HexoEditor Mode"></p>
+<p><img src="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/gif-uploadImage.gif" alt="HexoEditor Upload Image"></p>
+<p><img src="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/gif-newpost.gif" alt="HexoEditor New Post"></p>
+<p><img src="https://raw.githubusercontent.com/zhuzhuyule/HexoEditor/master/screenshots/gif-hexo.gif" alt="HexoEditor Hexo"></p>
+<h1 id="计划要做的"><a href="#计划要做的" class="headerlink" title="计划要做的"></a>计划要做的</h1><ul>
+<li><input disabled="" type="checkbox"> 添加目录</li>
+<li><input checked="" disabled="" type="checkbox"> 添加标题头设置(100%)</li>
+<li><input checked="" disabled="" type="checkbox"> 添加基本语法快捷键</li>
+<li><input disabled="" type="checkbox"> 添加历史文件树木<br>…..</li>
+<li><input checked="" disabled="" type="checkbox"> 快速部署</li>
+<li><input disabled="" type="checkbox"> 多标签编辑显示</li>
+</ul>
+<h1 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h1><table>
+<thead>
+<tr>
+<th align="center">按键</th>
+<th align="left">方法</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>Tab</code></td>
+<td align="left">tabAdd</td>
+<td align="left">添加缩进</td>
+</tr>
+<tr>
+<td align="center"><code>Shift</code> - <code>Tab</code></td>
+<td align="left">tabSubtract</td>
+<td align="left">减少缩进</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>B</code></td>
+<td align="left">toggleBlod</td>
+<td align="left">切换粗体</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>I</code></td>
+<td align="left">toggleItalic</td>
+<td align="left">切换斜体</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>D</code></td>
+<td align="left">toggleDelete</td>
+<td align="left">删除当前行</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>`</code></td>
+<td align="left">toggleComment</td>
+<td align="left">切换注解</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>L</code></td>
+<td align="left">toggleUnOrderedList</td>
+<td align="left">切换无序列表</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>Alt</code> - <code>L</code></td>
+<td align="left">toggleOrderedList</td>
+<td align="left">切换有序列表</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>]</code></td>
+<td align="left">toggleHeader</td>
+<td align="left">降级标题</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>[</code></td>
+<td align="left">toggleUnHeader</td>
+<td align="left">升级标题</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>=</code></td>
+<td align="left">toggleBlockquote</td>
+<td align="left">增加引用</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>-</code></td>
+<td align="left">toggleUnBlockquote</td>
+<td align="left">减少引用</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>U</code></td>
+<td align="left">drawLink</td>
+<td align="left">添加超级链接</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>Alt</code> - <code>U</code></td>
+<td align="left">drawImageLink</td>
+<td align="left">添加图片</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>T</code></td>
+<td align="left">drawTable(row col)</td>
+<td align="left">添加表格(行 列)</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>V</code></td>
+<td align="left">pasteOriginContent</td>
+<td align="left">源内容粘贴</td>
+</tr>
+<tr>
+<td align="center"><code>Shift</code> - <code>Ctrl</code> - <code>V</code></td>
+<td align="left">pasteContent</td>
+<td align="left">智能粘贴</td>
+</tr>
+<tr>
+<td align="center"><code>Alt</code> - <code>F</code></td>
+<td align="left">formatTables</td>
+<td align="left">格式化表格</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>N</code></td>
+<td align="left"></td>
+<td align="left">新建md文档</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>H</code></td>
+<td align="left"></td>
+<td align="left">新建Hexo文档</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>O</code></td>
+<td align="left"></td>
+<td align="left">打开md文件</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>S</code></td>
+<td align="left"></td>
+<td align="left">保存文档</td>
+</tr>
+<tr>
+<td align="center"><code>Shift</code> - <code>Ctrl</code> - <code>S</code></td>
+<td align="left"></td>
+<td align="left">另存为</td>
+</tr>
+<tr>
+<td align="center"><code>Alt</code> - <code>Ctrl</code> - <code>S</code></td>
+<td align="left"></td>
+<td align="left">打开设置</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>W</code></td>
+<td align="left"></td>
+<td align="left">切换写作模式</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>P</code></td>
+<td align="left"></td>
+<td align="left">切换预览模式</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl</code> - <code>R</code></td>
+<td align="left"></td>
+<td align="left">切换阅读模式</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>提示</strong>: 在 Mac OS下, 请使用 <code>Cmd</code> 来代替 <code>Ctrl</code> .</li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如果使用 Windows:</span></span><br><span class="line">npm config <span class="built_in">set</span> prefix <span class="string">&quot;C:/Program Files/nodejs/npm_global&quot;</span></span><br><span class="line">npm config <span class="built_in">set</span> cache <span class="string">&quot;C:/Program Files/nodejs/npm_cache&quot;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">//如果使用 Linux\Mac:</span></span><br><span class="line">npm config <span class="built_in">set</span> prefix <span class="string">&quot;~/nodejs/npm_global&quot;</span></span><br><span class="line">npm config <span class="built_in">set</span> cache <span class="string">&quot;~/nodejs/npm_cache&quot;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">//在中国，中国，中国，你应该设置淘宝镜像来加速下载。</span></span><br><span class="line">npm config <span class="built_in">set</span> registry <span class="string">&quot;https://registry.npm.taobao.org/&quot;</span></span><br><span class="line">npm config <span class="built_in">set</span> electron_mirror <span class="string">&quot;https://npm.taobao.org/mirrors/electron/&quot;</span></span><br><span class="line"></span><br><span class="line">git clone https:<span class="comment">//github.com/zhuzhuyule/HexoEditor.git</span></span><br><span class="line">cd HexoEditor</span><br><span class="line">npm install</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+<p>这里是 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3podXpodXl1bGUvSGV4b0VkaXRvci9ibG9iL21hc3Rlci9kb2MvZW4vQnVpbGRpbmcubWQ=" title="https://github.com/zhuzhuyule/HexoEditor/blob/master/doc/en/Building.md">详细安装方式<i class="fa fa-external-link"></i></span></p>
+<p>国内，如果想要提高下载速度，请使用 <code>cnpm</code> 来代替 <code>npm</code>，命令如下 。</p>
+<h1 id="调试模式"><a href="#调试模式" class="headerlink" title="调试模式"></a>调试模式</h1><p>这里有三种方法打开 <span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuY2hyb21lLmNvbS9kZXZ0b29scw==" title="https://developer.chrome.com/devtools">Chrome开发者工具<i class="fa fa-external-link"></i></span>.</p>
+<ol>
+<li>启动命令行添加参数 <code>--debug</code> :<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start -- --debug</span><br></pre></td></tr></table></figure></li>
+<li>使用快捷键：<br>Linux &#x2F; Windows： <code>Ctrl</code> + <code>Shift</code> + <code>I</code><br>OS X &#x2F; macOS   ： <code>Command</code> + <code>Option</code> + <code>I</code> </li>
+<li>在 config 设置 <code>debug: true</code>。 配置文件在缓存中，路径：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">windows: %USERPROFILE%\.config\configstore\HexoEditor.json</span><br><span class="line">linux  : ~/.config/configstore/HexoEditor.json</span><br><span class="line">mac    : ~/.config/configstore/HexoEditor.json( 待确认)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="本地化"><a href="#本地化" class="headerlink" title="本地化"></a>本地化</h1><p>HexoEditor将自动识别系统语言并使用对应语言包。</p>
+<p>你也可以通过设置手动设置语言包。</p>
+<p>目前支持：简体中文，英语，法语，德语，西班牙语，俄语 和 不完整的葡萄牙语。</p>
+<p><strong>帮助</strong> 如果你可以帮助翻译，请修改 <code>app/moe-l10n.js</code>.</p>
+<h1 id="许可证"><a href="#许可证" class="headerlink" title="许可证"></a>许可证</h1><p>HexoEditor 使用许可证为 <strong>GPL v3</strong> 许可.</p>
+<p>一些Node模块使用其他的免费许可证书。</p>
+<p><code>Raleway</code> 字体许可证书为 OFL(Open Font License)。</p>
+<h1 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h1><ol>
+<li>请修改插件 codemirror，文件路径 :</li>
+</ol>
+<blockquote>
+<p>.&#x2F;node_modules&#x2F;codemirror&#x2F;lib&#x2F;codemirror.js (line: <code>3104</code>)</p>
+</blockquote>
+<blockquote>
+<p>.&#x2F;node_modules&#x2F;codemirror&#x2F;src&#x2F;display&#x2F;selection.js (line: <code>56</code>)</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//var rightSide = Math.max(display.sizerWidth, displayWidth(cm) - display.sizer.offsetLeft) - padding.right;</span></span><br><span class="line"><span class="keyword">var</span> rightSide = display.<span class="property">lineDiv</span>.<span class="property">offsetWidth</span> - padding.<span class="property">right</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h1><ul>
+<li>:triangular_flag_on_post: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RoZW1lLW5leHQvaGV4by10aGVtZS1uZXh0" title="https://github.com/theme-next/hexo-theme-next">NexT theme<i class="fa fa-external-link"></i></span></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="SindreYang 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="SindreYang 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>SindreYang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.mviai.com/2018/%E6%BC%82%E4%BA%AE%E5%8F%88%E7%AE%80%E6%B4%81%E7%9A%84hexo%E7%BC%96%E8%BE%91%E5%99%A8hexoEditor/" title="漂亮又简洁的hexo编辑器hexoEditor">http://blog.mviai.com/2018/漂亮又简洁的hexo编辑器hexoEditor/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat.png">
+            <span class="icon">
+              <i class="fa fa-wechat"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/%E7%AC%AC%E5%8D%81%E4%BA%94%E8%8A%82%EF%BC%9A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="prev" title="第十五节：正则表达式">
+      <i class="fa fa-chevron-left"></i> 第十五节：正则表达式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/%E5%B0%8F%E7%8E%A9%E5%85%B7-VIP%E8%A7%86%E9%A2%91%E8%A7%A3%E6%9E%90%E7%95%8C%E9%9D%A2/" rel="next" title="小玩具-VIP视频解析界面">
+      小玩具-VIP视频解析界面 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">地址：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%AA%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">截图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%88%AA%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">动态截图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E5%88%92%E8%A6%81%E5%81%9A%E7%9A%84"><span class="nav-number">5.</span> <span class="nav-text">计划要做的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">6.</span> <span class="nav-text">快捷键</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">7.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">调试模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%8C%96"><span class="nav-number">9.</span> <span class="nav-text">本地化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B8%E5%8F%AF%E8%AF%81"><span class="nav-number">10.</span> <span class="nav-text">许可证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA"><span class="nav-number">11.</span> <span class="nav-text">提示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-number">12.</span> <span class="nav-text">兼容性</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SindreYang"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">SindreYang</p>
+  <div class="site-description" itemprop="description">沉淀后我愿意做一个温暖的人。有自己的喜好，有自己的原则，有自己的信仰，不急功近利，不浮夸轻薄，宠辱不惊，淡定安逸，心静如水。------不忘初心，方得始终</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1NpbmRyZVlhbmc=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;SindreYang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnl4QG12aWFpLmNvbQ==" title="E-Mail → mailto:yx@mviai.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2018/%E6%BC%82%E4%BA%AE%E5%8F%88%E7%AE%80%E6%B4%81%E7%9A%84hexo%E7%BC%96%E8%BE%91%E5%99%A8hexoEditor/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2018/%E6%BC%82%E4%BA%AE%E5%8F%88%E7%AE%80%E6%B4%81%E7%9A%84hexo%E7%BC%96%E8%BE%91%E5%99%A8hexoEditor/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SindreYang</span>
+</div><!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+<!-- 背景波浪 -->
+<script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+
+<!-- 腾讯企业邮箱 -->
+<style>
+.bizmail_loginpanel {
+    font-size: 12px;
+    width: 300px;
+    height: auto;
+    background: transparent;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bizmail_LoginBox {
+    padding: 10px 15px;
+}
+
+
+.bizmail_loginpanel form {
+    margin: 0;
+    padding: 0;
+}
+
+.bizmail_loginpanel input.text {
+    font-size: 12px;
+    width: 100px;
+    height: 20px;
+    margin: 0 2px;
+    background-color: transparent;
+    border:1px solid transparent;
+    box-shadow: none;
+    color: black;
+}
+
+.bizmail_loginpanel .bizmail_column {
+    height: 28px;
+}
+
+.bizmail_loginpanel .bizmail_column label {
+    display: block;
+    float: left;
+    width: 30px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+}
+
+.bizmail_loginpanel .bizmail_column .bizmail_inputArea {
+    float: left;
+    width: 240px;
+}
+
+.bizmail_loginpanel .bizmail_column span {
+    font-size: 12px;
+    word-wrap: break-word;
+    margin-left: 2px;
+    line-height: 200%;
+}
+
+.bizmail_loginpanel .bizmail_SubmitArea {
+    margin-left: 30px;
+    clear: both;
+}
+
+.bizmail_loginpanel .bizmail_SubmitArea a {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.bizmail_loginpanel select {
+    width: 110px;
+    height: 20px;
+    margin: 0 2px;
+}
+.bizmail_loginpanel input {
+
+    background-color: rgba(83, 126, 236, 0.562);
+}
+
+
+</style>
+
+<script type="text/javascript">
+function checkInput() {
+    var e = document.form1.uin,
+        i = document.form1.pwd;
+    return 0 == e.value.length ? e.focus() : 0 == i.value.length ? i.focus() : (document.form1.submit(), setTimeout(" document.form1.pwd.value = '' ", 500)), !1
+}
+
+function writeLoginPanel(e) {
+    if (e && e.domainlist && -1 != e.domainlist.indexOf(".")) {
+        var a = "return checkInput()",
+            t = '<div id="divLoginpanelHor" class="bizmail_loginpanel" style="width:550px;"><div class="bizmail_LoginBox"><form name="form1" action="https://exmail.qq.com/cgi-bin/login" target="_blank" method="post" onsubmit="' + a + '"><input type="hidden" name="firstlogin" value="false" /><input type="hidden" name="errtemplate" value="dm_loginpage" /><input type="hidden" name="aliastype" value="other" /><input type="hidden" name="dmtype" value="bizmail" /><input type="hidden" name="p" value="" /><label>\u8d26\u53f7:</label><input type="text" name="uin" class="text" value="" />@#domainlist#<label>&nbsp&nbsp&nbsp;\u5bc6\u7801:</label><input type="password" name="pwd" class="text" value="" /><input type="submit" class="" name="" value="\u767b\u5f55" />&nbsp;<a href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=biz_rf_portal#recovery" target="_blank">\u5fd8\u8bb0\u5bc6\u7801\uff1f</a></form></div></div>',
+            n = '<div id="divLoginpanelVer" class="bizmail_loginpanel"><div class="bizmail_LoginBox"><form name="form1" action="https://exmail.qq.com/cgi-bin/login" target="_blank" method="post" onsubmit="' + a + '"><input type="hidden" name="firstlogin" value="false" /><input type="hidden" name="errtemplate" value="dm_loginpage" /><input type="hidden" name="aliastype" value="other" /><input type="hidden" name="dmtype" value="bizmail" /><input type="hidden" name="p" value="" /><div class="bizmail_column"><label>\u8d26\u53f7:</label><div class="bizmail_inputArea"><input type="text" name="uin" class="text" value="" />@#domainlist#</div></div><div class="bizmail_column"><label>\u5bc6\u7801:</label><div class="bizmail_inputArea"><input type="password" name="pwd" class="text" value="" /></div></div><div class="bizmail_SubmitArea"><input type="submit" class="" name="" style="width:66px;" value="\u767b\u5f55" /><a href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=biz_rf_portal#recovery" target="_blank">\u5fd8\u8bb0\u5bc6\u7801\uff1f</a></div></form></div></div>',
+            l = e.domainlist.split(";");
+        if (1 == l.length) var m = '<span>#domain#</span><input type="hidden" name="domain" value="#domain#" />'.replace(/#domain#/g, l[0]);
+        else {
+            m = '<select name="domain">';
+            for (i = 0; i < l.length; i++) m += '<option value="' + l[i] + '">' + l[i] + "</option>";
+            m += "</select>"
+        }
+        e.mode && "vertical" != e.mode && "both" != e.mode || document.write(n.replace(/#domainlist#/g, m)), "horizontal" != e.mode && "both" != e.mode || document.write(t.replace(/#domainlist#/g, m))
+    }
+}
+
+</script>      
+
+<script type="text/javascript"> writeLoginPanel({domainlist:"mviai.com", mode:"horizontal"});</script>      
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyxmItxjS';
+    var conf = 'e5e71132d9086bb54aeeba6e88e87df9';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://cy-cdn.kuaizhan.com/upload/plugins/plugins.count.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":75,"height":150},"mobile":{"show":true},"log":false});</script></body>
+</html>
+
+
+
+
